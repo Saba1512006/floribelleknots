@@ -471,7 +471,6 @@
                         <span class="material-symbols-outlined text-sm text-brand-rose">assignment</span>
                         <span>Customer Booking Details</span>
                     </span>
-                    <span class="text-[9px] font-bold text-brand-rose bg-brand-rose-soft px-2 py-0.5 rounded-full border border-brand-rose/20">Shopify Checkout</span>
                 </div>
 
                 <!-- Full Name Field -->
@@ -505,11 +504,16 @@
                 <!-- Payment Method Selector -->
                 <div>
                     <label class="block text-[10px] font-bold text-brand-coffee mb-0.5">Preferred Payment Option <span class="text-red-500">*</span></label>
-                    <select id="checkout-payment-method" class="w-full bg-white border border-brand-border text-brand-coffee text-xs font-semibold rounded-xl px-3 py-1.5 focus:outline-none focus:border-brand-rose">
+                    <select id="checkout-payment-method" onchange="handlePaymentMethodChange(this.value)" class="w-full bg-white border border-brand-border text-brand-coffee text-xs font-semibold rounded-xl px-3 py-1.5 focus:outline-none focus:border-brand-rose">
                         <option value="Cash on Delivery (COD)" selected>💵 Cash on Delivery (COD)</option>
                         <option value="EasyPaisa (Mobile Wallet)">📱 EasyPaisa (Mobile Wallet)</option>
                         <option value="JazzCash (Mobile Wallet)">⚡ JazzCash (Mobile Wallet)</option>
                     </select>
+                    <!-- Online Payment WhatsApp Help Notice -->
+                    <div id="online-payment-notice" class="hidden mt-1.5 p-2 rounded-xl bg-brand-rose-soft/70 border border-brand-rose/30 text-[10.5px] text-brand-coffee font-semibold flex items-center gap-1.5 transition-all">
+                        <span class="material-symbols-outlined text-sm text-brand-rose shrink-0">info</span>
+                        <span>For online payment details, contact on <a href="javascript:void(0)" onclick="triggerDirectWhatsApp('Salam! I need online payment account details (EasyPaisa/JazzCash) for my order.')" class="text-brand-rose font-bold underline hover:text-brand-rose-dark">WhatsApp</a></span>
+                    </div>
                 </div>
 
                 <!-- Special Instructions (Optional) -->
@@ -2493,6 +2497,16 @@
                 shoppingBag.splice(index, 1);
                 updateBagUI();
                 showToast(`Removed "${title}"`, 'delete');
+            }
+        }
+
+        function handlePaymentMethodChange(val) {
+            const notice = document.getElementById('online-payment-notice');
+            if (!notice) return;
+            if (val && (val.includes('EasyPaisa') || val.includes('JazzCash'))) {
+                notice.classList.remove('hidden');
+            } else {
+                notice.classList.add('hidden');
             }
         }
 
