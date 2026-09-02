@@ -461,17 +461,62 @@
             </div>
         </div>
 
-        <!-- Drawer Footer -->
-        <div class="p-4 sm:p-5 bg-white border-t border-brand-border space-y-3">
+        <!-- Drawer Footer (Shopify-Style Booking & Checkout) -->
+        <div class="p-4 sm:p-5 bg-white border-t border-brand-border space-y-3.5 max-h-[60vh] overflow-y-auto">
             
-            <!-- Location Selector -->
-            <div class="space-y-1">
-                <label class="block text-[10.5px] font-bold text-brand-coffee-muted uppercase tracking-wider">Select Delivery Location</label>
-                <select id="bag-delivery-select" onchange="updateBagUI()" class="w-full bg-brand-paper border border-brand-border text-brand-coffee text-xs font-semibold rounded-xl p-2 focus:outline-none focus:border-brand-rose">
-                    <option value="pickup" data-fee="0">📍 Studio Pickup — Free (Rs. 0)</option>
-                    <option value="lahore" data-fee="150" selected>🚚 Standard Delivery (Lahore) — Rs. 150</option>
-                    <option value="nationwide" data-fee="250">📦 Express Courier (Nationwide) — Rs. 250</option>
-                </select>
+            <!-- Shopify-Style Customer Booking Form -->
+            <div class="space-y-2.5 bg-brand-linen/40 p-3 rounded-2xl border border-brand-border/70">
+                <div class="flex items-center justify-between pb-1 border-b border-brand-border/50">
+                    <span class="text-[11px] font-bold uppercase tracking-wider text-brand-coffee flex items-center gap-1">
+                        <span class="material-symbols-outlined text-sm text-brand-rose">assignment</span>
+                        <span>Customer Booking Details</span>
+                    </span>
+                    <span class="text-[9px] font-bold text-brand-rose bg-brand-rose-soft px-2 py-0.5 rounded-full border border-brand-rose/20">Shopify Checkout</span>
+                </div>
+
+                <!-- Full Name Field -->
+                <div>
+                    <label class="block text-[10px] font-bold text-brand-coffee mb-0.5">Full Name <span class="text-red-500">*</span></label>
+                    <input type="text" id="checkout-customer-name" placeholder="e.g. Ayesha Khan" class="w-full bg-white border border-brand-border text-brand-coffee text-xs font-semibold rounded-xl px-3 py-1.5 focus:outline-none focus:border-brand-rose transition-colors" />
+                </div>
+
+                <!-- Phone / WhatsApp Field -->
+                <div>
+                    <label class="block text-[10px] font-bold text-brand-coffee mb-0.5">Mobile / WhatsApp Number <span class="text-red-500">*</span></label>
+                    <input type="tel" id="checkout-customer-phone" placeholder="e.g. 0306 1234567" class="w-full bg-white border border-brand-border text-brand-coffee text-xs font-semibold rounded-xl px-3 py-1.5 focus:outline-none focus:border-brand-rose transition-colors" />
+                </div>
+
+                <!-- Delivery Address Field -->
+                <div>
+                    <label class="block text-[10px] font-bold text-brand-coffee mb-0.5">Complete Delivery Address <span class="text-red-500">*</span></label>
+                    <textarea id="checkout-customer-address" rows="2" placeholder="House/Flat No., Street, Sector/Area, City" class="w-full bg-white border border-brand-border text-brand-coffee text-xs font-semibold rounded-xl px-3 py-1.5 focus:outline-none focus:border-brand-rose resize-none transition-colors"></textarea>
+                </div>
+
+                <!-- Delivery Location Selector -->
+                <div>
+                    <label class="block text-[10px] font-bold text-brand-coffee mb-0.5">Delivery Zone <span class="text-red-500">*</span></label>
+                    <select id="bag-delivery-select" onchange="updateBagUI()" class="w-full bg-white border border-brand-border text-brand-coffee text-xs font-semibold rounded-xl px-3 py-1.5 focus:outline-none focus:border-brand-rose">
+                        <option value="lahore" data-fee="150" selected>🚚 Standard Delivery (Lahore) — Rs. 150</option>
+                        <option value="nationwide" data-fee="250">📦 Express Courier (Karachi/Isb/Nationwide) — Rs. 250</option>
+                        <option value="pickup" data-fee="0">📍 Studio Self-Pickup — Free (Rs. 0)</option>
+                    </select>
+                </div>
+
+                <!-- Payment Method Selector -->
+                <div>
+                    <label class="block text-[10px] font-bold text-brand-coffee mb-0.5">Preferred Payment Option <span class="text-red-500">*</span></label>
+                    <select id="checkout-payment-method" class="w-full bg-white border border-brand-border text-brand-coffee text-xs font-semibold rounded-xl px-3 py-1.5 focus:outline-none focus:border-brand-rose">
+                        <option value="Cash on Delivery (COD)" selected>💵 Cash on Delivery (COD)</option>
+                        <option value="EasyPaisa (Mobile Wallet)">📱 EasyPaisa (Mobile Wallet)</option>
+                        <option value="JazzCash (Mobile Wallet)">⚡ JazzCash (Mobile Wallet)</option>
+                    </select>
+                </div>
+
+                <!-- Special Instructions (Optional) -->
+                <div>
+                    <label class="block text-[10px] font-bold text-brand-coffee-muted mb-0.5">Delivery Notes / Instructions (Optional)</label>
+                    <input type="text" id="checkout-customer-notes" placeholder="e.g. Call before arrival / Fragile item" class="w-full bg-white border border-brand-border text-brand-coffee text-xs font-semibold rounded-xl px-3 py-1.5 focus:outline-none focus:border-brand-rose" />
+                </div>
             </div>
 
             <!-- Handwritten Eco-Gift Note Card Toggle & Live Preview -->
@@ -526,12 +571,12 @@
                 </div>
             </div>
 
-            <button id="checkout-bag-whatsapp-btn" onclick="checkoutBagViaWhatsApp()" class="squish-btn w-full bg-brand-rose hover:bg-brand-rose-dark text-white py-3 rounded-full font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-soft-card disabled:opacity-40 disabled:cursor-not-allowed">
+            <button id="checkout-bag-whatsapp-btn" onclick="checkoutBagViaWhatsApp()" class="squish-btn w-full bg-brand-rose hover:bg-brand-rose-dark text-white py-3 rounded-full font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-soft-card disabled:opacity-40 disabled:cursor-not-allowed transition-all">
                 <span class="material-symbols-outlined text-base">chat</span>
-                Checkout Bag on WhatsApp
+                Complete Booking via WhatsApp
             </button>
             <p class="text-[10px] text-center text-brand-coffee-muted">
-                Generates a single itemized WhatsApp message directly to our artisan team.
+                Generates a complete Shopify-style itemized WhatsApp booking invoice.
             </p>
         </div>
     </aside>
@@ -2452,18 +2497,65 @@
         }
 
         function checkoutBagViaWhatsApp() {
-            if (shoppingBag.length === 0) return;
+            if (shoppingBag.length === 0) {
+                showToast('Your Shopping Bag is empty!', 'shopping_bag');
+                return;
+            }
 
+            const nameEl = document.getElementById('checkout-customer-name');
+            const phoneEl = document.getElementById('checkout-customer-phone');
+            const addressEl = document.getElementById('checkout-customer-address');
+            const paymentEl = document.getElementById('checkout-payment-method');
+            const notesEl = document.getElementById('checkout-customer-notes');
+
+            const customerName = nameEl ? nameEl.value.trim() : '';
+            const customerPhone = phoneEl ? phoneEl.value.trim() : '';
+            const customerAddress = addressEl ? addressEl.value.trim() : '';
+            const paymentMethod = paymentEl ? paymentEl.value : 'Cash on Delivery (COD)';
+            const customerNotes = notesEl ? notesEl.value.trim() : '';
+
+            // Shopify-style Booking Form Validation
+            let isValid = true;
+            if (!customerName) {
+                if (nameEl) { nameEl.classList.add('border-red-500', 'bg-red-50'); }
+                isValid = false;
+            } else if (nameEl) { nameEl.classList.remove('border-red-500', 'bg-red-50'); }
+
+            if (!customerPhone) {
+                if (phoneEl) { phoneEl.classList.add('border-red-500', 'bg-red-50'); }
+                isValid = false;
+            } else if (phoneEl) { phoneEl.classList.remove('border-red-500', 'bg-red-50'); }
+
+            if (!customerAddress) {
+                if (addressEl) { addressEl.classList.add('border-red-500', 'bg-red-50'); }
+                isValid = false;
+            } else if (addressEl) { addressEl.classList.remove('border-red-500', 'bg-red-50'); }
+
+            if (!isValid) {
+                showToast('Please enter your Name, Phone & Delivery Address!', 'warning');
+                return;
+            }
+
+            const orderRef = `#FK-${Math.floor(1000 + Math.random() * 9000)}`;
             let subtotal = 0;
-            let msg = `🌸 *NEW CROCHET ORDER — Floribelle Knots* 🌸\n`;
+            let msg = `🌸 *FLORIBELLE KNOTS — OFFICIAL ORDER BOOKING* 🌸\n`;
             msg += `----------------------------------\n`;
-            msg += `🛍️ *Order Items:*\n`;
+            msg += `🆔 *Booking Ref:* ${orderRef}\n\n`;
+            msg += `🛍️ *ORDERED ITEMS:*\n`;
 
             shoppingBag.forEach((item, idx) => {
                 const itemTotal = item.price * item.qty;
                 subtotal += itemTotal;
                 msg += `${idx + 1}. *${item.title}* (Qty: ${item.qty}) — Rs. ${itemTotal.toLocaleString()}\n`;
             });
+
+            // Handwritten Note Card check
+            const giftCheck = document.getElementById('bag-gift-check');
+            if (giftCheck && giftCheck.checked) {
+                const noteTo = document.getElementById('gift-to-input')?.value.trim() || 'Friend';
+                const noteMsg = document.getElementById('gift-msg-input')?.value.trim() || '';
+                msg += `💌 *Gift Card:* Included (To: ${noteTo}${noteMsg ? `, Note: "${noteMsg}"` : ''})\n`;
+            }
 
             const deliverySelect = document.getElementById('bag-delivery-select');
             let deliveryLabel = "Standard Delivery (Lahore)";
@@ -2489,21 +2581,26 @@
 
             const grandTotal = Math.max(0, subtotal - discount + deliveryFee);
 
-            msg += `\n💰 *Order Summary:*\n`;
-            msg += `• Subtotal: Rs. ${subtotal.toLocaleString()}\n`;
-            if (discount > 0) {
-                msg += `• Discount (${activePromo.code}): - Rs. ${discount.toLocaleString()}\n`;
+            msg += `\n👤 *CUSTOMER BOOKING DETAILS:*\n`;
+            msg += `• *Full Name:* ${customerName}\n`;
+            msg += `• *Phone Number:* ${customerPhone}\n`;
+            msg += `• *Delivery Address:* ${customerAddress}\n`;
+            msg += `• *Delivery Zone:* ${deliveryLabel}\n`;
+            msg += `• *Payment Method:* ${paymentMethod}\n`;
+            if (customerNotes) {
+                msg += `• *Special Notes:* ${customerNotes}\n`;
             }
-            msg += `• Delivery Option: ${deliveryLabel}\n`;
-            msg += `• Packaging: 0% Plastic Kraft Box (Complimentary)\n`;
-            msg += `• *Grand Total: Rs. ${grandTotal.toLocaleString()}*\n\n`;
 
-            msg += `📍 *Customer Details Template:*\n`;
-            msg += `• Full Name: [Enter Name]\n`;
-            msg += `• Delivery Address / Area: [Enter Location]\n`;
-            msg += `• Preferred Payment: Cash on Delivery / EasyPaisa / JazzCash\n`;
+            msg += `\n💰 *ORDER SUMMARY:*\n`;
+            msg += `• Items Subtotal: Rs. ${subtotal.toLocaleString()}\n`;
+            if (discount > 0) {
+                msg += `• Promo Discount (${activePromo.code}): - Rs. ${discount.toLocaleString()}\n`;
+            }
+            msg += `• Delivery Fee: ${deliveryFee === 0 ? "Free (Rs. 0)" : `Rs. ${deliveryFee.toLocaleString()}`}\n`;
+            msg += `• Packaging: 0% Plastic Kraft Box (Complimentary)\n`;
+            msg += `• *GRAND TOTAL: Rs. ${grandTotal.toLocaleString()}*\n`;
             msg += `----------------------------------\n`;
-            msg += `Please confirm my order and let me know the estimated dispatch time! ✨`;
+            msg += `Salam! Please confirm my booking and share dispatch details. Thank you! ✨`;
 
             triggerDirectWhatsApp(msg);
         }
