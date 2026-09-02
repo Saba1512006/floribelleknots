@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
+    <!-- Anti-FOUC (Flash of Unstyled Content) Protection -->
+    <style>
+        html { visibility: hidden; opacity: 0; }
+        html.fouc-ready { visibility: visible; opacity: 1; transition: opacity 0.25s ease-in-out; }
+    </style>
+    <script>
+        (function() {
+            function reveal() {
+                document.documentElement.classList.add('fouc-ready');
+            }
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', reveal);
+            } else {
+                reveal();
+            }
+            setTimeout(reveal, 200);
+        })();
+    </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
     <meta name="description" content="Floribelle Knots — Slow craft crochet boutique. Handcrafted keychains, tech sleeves, desk companions, and custom gift bundles. Made with love, tied to last." />
@@ -238,6 +256,15 @@
 </head>
 
 <body class="selection:bg-brand-rose-soft selection:text-brand-rose-dark relative">
+
+    <!-- Boutique Brand Preloader Curtain (Prevents FOUC) -->
+    <div id="app-preloader" style="background-color: #FAF7F2;" class="fixed inset-0 z-[9999] flex flex-col items-center justify-center transition-opacity duration-300 pointer-events-none">
+        <div class="flex flex-col items-center p-6 text-center">
+            <img src="logo-transparent.png" alt="Floribelle Knots" class="w-16 h-16 sm:w-20 sm:h-20 object-contain mb-3 animate-pulse" />
+            <h1 class="font-serif text-xl sm:text-2xl font-bold text-brand-rose tracking-tight">Floribelle Knots</h1>
+            <p class="text-[9px] sm:text-[10px] tracking-[0.25em] font-bold text-brand-gold uppercase mt-1">Handcrafted Slow Fashion</p>
+        </div>
+    </div>
 
     <!-- Paper Grain Layer -->
     <div class="fixed inset-0 paper-grain z-0"></div>
@@ -2744,6 +2771,19 @@
         updateLabPreview();
         updateBagUI();
         updateWishlistUI();
+
+        // Smooth Preloader Dismissal (Anti-FOUC)
+        function hidePreloader() {
+            const preloader = document.getElementById('app-preloader');
+            if (preloader && preloader.style.opacity !== '0') {
+                preloader.style.opacity = '0';
+                setTimeout(() => {
+                    if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+                }, 350);
+            }
+        }
+        window.addEventListener('load', hidePreloader);
+        setTimeout(hidePreloader, 500);
     </script>
 </body>
 </html>
