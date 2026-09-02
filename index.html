@@ -2001,11 +2001,13 @@
 
         function updateWishlistUI() {
             const countBadge = document.getElementById('wishlist-count-badge');
+            const dockCountBadge = document.getElementById('dock-wishlist-badge');
             const drawerCount = document.getElementById('wishlist-items-count');
             const wishlistList = document.getElementById('wishlist-items-list');
             const moveBtn = document.getElementById('move-wishlist-to-bag-btn');
 
             if (countBadge) countBadge.textContent = wishlist.length;
+            if (dockCountBadge) dockCountBadge.textContent = wishlist.length;
             if (drawerCount) drawerCount.textContent = `${wishlist.length} item${wishlist.length === 1 ? '' : 's'}`;
 
             if (!wishlistList) return;
@@ -2290,6 +2292,8 @@
             const bagBadge = document.getElementById('bag-count-badge');
             const fabBagBadge = document.getElementById('fab-bag-badge');
             const fabBagTotal = document.getElementById('fab-bag-total');
+            const dockBagBadge = document.getElementById('dock-bag-badge');
+            const dockBagTotal = document.getElementById('dock-bag-total');
             const drawerCount = document.getElementById('drawer-items-count');
             const bagList = document.getElementById('bag-items-list');
             const drawerSubtotal = document.getElementById('drawer-subtotal');
@@ -2303,6 +2307,7 @@
             const totalCount = shoppingBag.reduce((sum, item) => sum + item.qty, 0);
             if (bagBadge) bagBadge.textContent = totalCount;
             if (fabBagBadge) fabBagBadge.textContent = totalCount;
+            if (dockBagBadge) dockBagBadge.textContent = totalCount;
             if (drawerCount) drawerCount.textContent = `${totalCount} item${totalCount === 1 ? '' : 's'}`;
 
             saveBag();
@@ -2323,6 +2328,7 @@
                 if (drawerSubtotal) drawerSubtotal.textContent = "Rs. 0";
                 if (drawerTotal) drawerTotal.textContent = "Rs. 0";
                 if (fabBagTotal) fabBagTotal.textContent = "Rs. 0";
+                if (dockBagTotal) dockBagTotal.textContent = "Rs. 0";
                 if (checkoutBtn) checkoutBtn.disabled = true;
                 if (discountRow) discountRow.classList.add('hidden');
                 return;
@@ -2401,6 +2407,7 @@
             if (drawerSubtotal) drawerSubtotal.textContent = `Rs. ${subtotal.toLocaleString()}`;
             if (drawerTotal) drawerTotal.textContent = `Rs. ${grandTotal.toLocaleString()}`;
             if (fabBagTotal) fabBagTotal.textContent = `Rs. ${grandTotal.toLocaleString()}`;
+            if (dockBagTotal) dockBagTotal.textContent = `Rs. ${grandTotal.toLocaleString()}`;
         }
 
         function addToBag(productId, qty = 1, e = null) {
