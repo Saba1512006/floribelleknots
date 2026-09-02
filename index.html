@@ -496,8 +496,8 @@
                 <div>
                     <label class="block text-[10px] font-bold text-brand-coffee mb-0.5">Delivery Zone <span class="text-red-500">*</span></label>
                     <select id="bag-delivery-select" onchange="updateBagUI()" class="w-full bg-white border border-brand-border text-brand-coffee text-xs font-semibold rounded-xl px-3 py-1.5 focus:outline-none focus:border-brand-rose">
-                        <option value="lahore" data-fee="150" selected>🚚 Standard Delivery (Lahore) — Rs. 150</option>
-                        <option value="nationwide" data-fee="250">📦 Express Courier (Karachi/Isb/Nationwide) — Rs. 250</option>
+                        <option value="karachi" data-fee="150" selected>🚚 Standard Delivery (Karachi) — Rs. 150</option>
+                        <option value="nationwide" data-fee="250">📦 Express Courier (Lahore/Isb/Nationwide) — Rs. 250</option>
                         <option value="pickup" data-fee="0">📍 Studio Self-Pickup — Free (Rs. 0)</option>
                     </select>
                 </div>
@@ -2558,7 +2558,7 @@
             }
 
             const deliverySelect = document.getElementById('bag-delivery-select');
-            let deliveryLabel = "Standard Delivery (Lahore)";
+            let deliveryLabel = "Standard Delivery (Karachi)";
             let deliveryFee = 150;
             if (deliverySelect) {
                 const opt = deliverySelect.options[deliverySelect.selectedIndex];
