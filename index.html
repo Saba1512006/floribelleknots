@@ -121,6 +121,23 @@
             --color-coffee: #3D2622;
         }
 
+        /* Smooth Moving Headline Ticker Marquee for Top Ribbon */
+        @keyframes marqueeScroll {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .animate-marquee-ribbon {
+            display: inline-flex;
+            white-space: nowrap;
+            animation: marqueeScroll 24s linear infinite;
+            will-change: transform;
+        }
+
+        .animate-marquee-ribbon:hover {
+            animation-play-state: paused;
+        }
+
         /* Prevent Material Symbols Raw Text FOUC */
         .material-symbols-outlined {
             font-family: 'Material Symbols Outlined';
@@ -292,10 +309,35 @@
     <!-- =================================================================== -->
     <div id="header-wrapper" class="fixed top-0 left-0 right-0 z-40 bg-brand-paper/95 backdrop-blur-md border-b border-brand-border/80">
         
-        <!-- Compact Announcement Bar -->
-        <div id="top-announcement" class="bg-brand-rose text-white text-[10px] sm:text-xs font-semibold py-1.5 px-3 text-center tracking-wide flex items-center justify-center gap-1.5 transition-all duration-300 overflow-hidden">
-            <span class="material-symbols-outlined text-xs sm:text-sm text-brand-gold shrink-0">auto_awesome</span>
-            <span class="truncate sm:whitespace-normal">Floribelle Knots • Made With Love, Tied To Last • Hand-knotted by Dedicated Artisans</span>
+        <!-- Compact Announcement Bar (Smooth Moving Headline Ticker) -->
+        <div id="top-announcement" class="bg-brand-rose text-white text-[10.5px] sm:text-xs font-bold py-1.5 px-3 tracking-wider overflow-hidden whitespace-nowrap relative border-b border-brand-rose-dark/40 shadow-2xs">
+            <div class="animate-marquee-ribbon items-center gap-8">
+                <span class="inline-flex items-center gap-2">
+                    <span class="material-symbols-outlined text-xs sm:text-sm text-brand-gold shrink-0">auto_awesome</span>
+                    Floribelle Knots • Made With Love, Tied To Last • Hand-knotted Slow Craft Boutique
+                </span>
+                <span class="inline-flex items-center gap-2">
+                    <span class="material-symbols-outlined text-xs sm:text-sm text-brand-gold shrink-0">local_shipping</span>
+                    Standard Delivery Rs. 150 (Karachi) • Express Courier Pakistan Rs. 250
+                </span>
+                <span class="inline-flex items-center gap-2">
+                    <span class="material-symbols-outlined text-xs sm:text-sm text-brand-gold shrink-0">favorite</span>
+                    100% Remnant Cotton Yarn • Zero Plastic Eco Packaging
+                </span>
+                <!-- Duplicate for Seamless Infinite Loop -->
+                <span class="inline-flex items-center gap-2">
+                    <span class="material-symbols-outlined text-xs sm:text-sm text-brand-gold shrink-0">auto_awesome</span>
+                    Floribelle Knots • Made With Love, Tied To Last • Hand-knotted Slow Craft Boutique
+                </span>
+                <span class="inline-flex items-center gap-2">
+                    <span class="material-symbols-outlined text-xs sm:text-sm text-brand-gold shrink-0">local_shipping</span>
+                    Standard Delivery Rs. 150 (Karachi) • Express Courier Pakistan Rs. 250
+                </span>
+                <span class="inline-flex items-center gap-2">
+                    <span class="material-symbols-outlined text-xs sm:text-sm text-brand-gold shrink-0">favorite</span>
+                    100% Remnant Cotton Yarn • Zero Plastic Eco Packaging
+                </span>
+            </div>
         </div>
 
         <header class="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-3 sm:gap-6 flex-nowrap" id="navbar">
@@ -430,8 +472,8 @@
         </div>
     </div>
 
-    <!-- Spacer for Fixed Header -->
-    <div class="h-20 sm:h-28"></div>
+    <!-- Spacer for Fixed Header (Ensures Generous Gap Under Navbar) -->
+    <div class="h-28 sm:h-36"></div>
 
     <!-- =================================================================== -->
     <!-- SLIDE-OVER SHOPPING BAG DRAWER (With LocalStorage Persistence) -->
@@ -634,7 +676,7 @@
         <!-- =================================================================== -->
         <!-- 1. HERO SECTION -->
         <!-- =================================================================== -->
-        <section id="home" class="relative pt-4 pb-12 sm:pt-10 sm:pb-20 overflow-hidden">
+        <section id="home" class="relative pt-6 sm:pt-12 pb-12 sm:pb-20 overflow-hidden">
             
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
