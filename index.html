@@ -574,14 +574,13 @@
                     <span>💌 Add Handwritten Note Card (Free)</span>
                 </label>
                 <div id="bag-gift-card-box" class="hidden space-y-2 pt-1.5 transition-all">
-                    <input type="text" id="gift-to-input" oninput="updateGiftCardPreview()" placeholder="To (e.g. Ayesha 💕)" class="w-full bg-brand-paper text-xs px-3 py-1.5 rounded-xl border border-brand-border focus:outline-none focus:border-brand-rose" />
-                    <textarea id="gift-msg-input" oninput="updateGiftCardPreview()" rows="2" placeholder="Write your message..." class="w-full bg-brand-paper text-xs px-3 py-1.5 rounded-xl border border-brand-border focus:outline-none focus:border-brand-rose resize-none"></textarea>
+                    <textarea id="gift-msg-input" oninput="updateGiftCardPreview()" rows="2" placeholder="Write custom gift message (Optional)..." class="w-full bg-white border border-brand-border text-brand-coffee text-xs font-semibold rounded-xl px-3 py-2 focus:outline-none focus:border-brand-rose resize-none transition-colors"></textarea>
                     
                     <!-- Stylized Live Kraft Card Note Preview -->
-                    <div class="bg-[#F3E9D9] border border-dashed border-[#C8B89E] p-3 rounded-xl shadow-2xs text-brand-coffee space-y-1 relative overflow-hidden">
+                    <div class="bg-[#F3E9D9] border border-dashed border-[#C8B89E] p-2.5 rounded-xl shadow-2xs text-brand-coffee space-y-0.5 relative overflow-hidden">
                         <span class="absolute top-1 right-2 text-xs opacity-60">🌸</span>
-                        <p class="font-handwritten text-lg font-bold text-brand-rose leading-none">Dearest <span id="note-to-preview">Friend</span>,</p>
-                        <p id="note-msg-preview" class="font-handwritten text-base leading-snug text-brand-coffee">"Wishing you handmade warmth &amp; endless smiles! With love, Floribelle Knots ✨"</p>
+                        <p class="font-serif text-[10px] font-bold text-brand-rose uppercase tracking-wider">Note Card Preview:</p>
+                        <p id="note-msg-preview" class="font-handwritten text-sm leading-snug text-brand-coffee font-semibold">"Blank card (Customer will write themselves)"</p>
                     </div>
                 </div>
             </div>
@@ -2640,6 +2639,31 @@
             }
         }
 
+        function toggleBagGiftCard(checked) {
+            const box = document.getElementById('bag-gift-card-box');
+            if (box) {
+                if (checked) {
+                    box.classList.remove('hidden');
+                    updateGiftCardPreview();
+                } else {
+                    box.classList.add('hidden');
+                }
+            }
+        }
+
+        function updateGiftCardPreview() {
+            const msgInput = document.getElementById('gift-msg-input');
+            const msgPreview = document.getElementById('note-msg-preview');
+            if (msgInput && msgPreview) {
+                const text = msgInput.value.trim();
+                if (text) {
+                    msgPreview.textContent = `"${text}"`;
+                } else {
+                    msgPreview.textContent = `"Blank card (Customer will write message themselves)"`;
+                }
+            }
+        }
+
         function handlePaymentMethodChange(val) {
             const notice = document.getElementById('online-payment-notice');
             if (!notice) return;
@@ -2703,12 +2727,15 @@
                 msg += `${idx + 1}. *${item.title}* (Qty: ${item.qty}) — Rs. ${itemTotal.toLocaleString()}\n`;
             });
 
-            // Handwritten Note Card check
+            // Handwritten Note Card check logic (Customer custom note vs Blank card for customer)
             const giftCheck = document.getElementById('bag-gift-check');
             if (giftCheck && giftCheck.checked) {
-                const noteTo = document.getElementById('gift-to-input')?.value.trim() || 'Friend';
-                const noteMsg = document.getElementById('gift-msg-input')?.value.trim() || '';
-                msg += `💌 *Gift Card:* Included (To: ${noteTo}${noteMsg ? `, Note: "${noteMsg}"` : ''})\n`;
+                const customMsg = document.getElementById('gift-msg-input')?.value.trim();
+                if (customMsg) {
+                    msg += `💌 *Gift Note Card:* Included (Custom Note: "${customMsg}")\n`;
+                } else {
+                    msg += `💌 *Gift Note Card:* Included (Blank card requested for customer)\n`;
+                }
             }
 
             const deliverySelect = document.getElementById('bag-delivery-select');
