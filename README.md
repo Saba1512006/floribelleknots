@@ -69,10 +69,10 @@ No build tools or server dependencies required!
 
 ```bash
 # Clone the repository
-git clone https://github.com/Saba1512006/floribelle-knots-boutique.git
+git clone https://github.com/Saba1512006/floribelleknots.git
 
 # Navigate to the project directory
-cd floribelle-knots-boutique
+cd floribelleknots
 
 # Open directly in browser or start a local preview server
 python -m http.server 8000
